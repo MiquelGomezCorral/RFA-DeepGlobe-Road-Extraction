@@ -8,6 +8,7 @@ import numpy as np
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
+from maikol_utils.print_utils import print_separator
 from PIL import Image
 from src.config import Configuration
 from src.data import SampleImage, apply_pipeline
@@ -320,9 +321,7 @@ def plot_model_scores(all_scores: dict):
     fig.show()
 
     # Create a detailed comparison table
-    print("\n" + "=" * 100)
-    print("DETAILED MODEL PERFORMANCE COMPARISON")
-    print("=" * 100)
+    print_separator("DETAILED MODEL PERFORMANCE COMPARISON", sep_type="SUPER")
 
     # Sort by IoU_mean (descending)
     df_sorted = df.sort_values("IoU_mean", ascending=False)
@@ -435,29 +434,33 @@ def plot_model_scores_by_architecture(all_scores: dict):
     fig = go.Figure()
 
     # Add traces for each architecture and augmentation combination
+    # Group by augmentation type to create proper grouped bars
     for arch_idx, architecture in enumerate(architectures):
         arch_data = df[df["Architecture"] == architecture]
 
-        # Keep track of which augmentations we've seen for this architecture's legend
-        arch_augmentations_shown = set()
+        # Create one trace per augmentation type (not per bar!)
+        for augmentation in sorted_augmentations:
+            aug_data = arch_data[arch_data["Augmentation"] == augmentation]
 
-        for idx, model_row in arch_data.iterrows():
-            # Show legend for each augmentation type for each architecture
-            show_legend_for_this_trace = model_row["Augmentation"] not in arch_augmentations_shown
-            if show_legend_for_this_trace:
-                arch_augmentations_shown.add(model_row["Augmentation"])
+            if len(aug_data) == 0:
+                continue
+
+            # Get all x values and y values for this augmentation
+            x_vals = aug_data["Display_Model"].tolist()
+            y_vals = aug_data["IoU_mean"].tolist()
+            text_vals = [f"{val:.3f}" for val in y_vals]
 
             fig.add_trace(
                 go.Bar(
-                    x=[model_row["Display_Model"]],
-                    y=[model_row["IoU_mean"]],
-                    name=f"{model_row['Augmentation']}",
-                    marker_color=aug_colors[model_row["Augmentation"]],
-                    text=f"{model_row['IoU_mean']:.3f}",
+                    x=x_vals,
+                    y=y_vals,
+                    name=f"{augmentation}",
+                    marker_color=aug_colors[augmentation],
+                    text=text_vals,
                     textposition="outside",
                     visible=(arch_idx == 0),  # Only show first architecture initially
-                    legendgroup=model_row["Augmentation"],
-                    showlegend=show_legend_for_this_trace,
+                    legendgroup=augmentation,
+                    showlegend=True,
                 )
             )
 
@@ -466,33 +469,23 @@ def plot_model_scores_by_architecture(all_scores: dict):
     for arch_idx, architecture in enumerate(architectures):
         # Create visibility array for this architecture
         visibility = []
-        showlegend_updates = {}
         trace_idx = 0
 
         for a_idx, arch in enumerate(architectures):
-            arch_data = df[df["Architecture"] == arch]
-            arch_augmentations_shown = set()
-
-            for idx, model_row in arch_data.iterrows():
-                is_visible = a_idx == arch_idx
-                visibility.append(is_visible)
-
-                # Update showlegend for this trace
-                show_legend_for_this_trace = (
-                    model_row["Augmentation"] not in arch_augmentations_shown
-                )
-                if show_legend_for_this_trace:
-                    arch_augmentations_shown.add(model_row["Augmentation"])
-
-                showlegend_updates[trace_idx] = is_visible and show_legend_for_this_trace
-                trace_idx += 1
+            # Each architecture has one trace per augmentation type
+            for augmentation in sorted_augmentations:
+                aug_data = df[(df["Architecture"] == arch) & (df["Augmentation"] == augmentation)]
+                if len(aug_data) > 0:
+                    is_visible = a_idx == arch_idx
+                    visibility.append(is_visible)
+                    trace_idx += 1
 
         buttons.append(
             dict(
                 label=architecture,
                 method="update",
                 args=[
-                    {"visible": visibility, "showlegend": list(showlegend_updates.values())},
+                    {"visible": visibility},
                     {
                         "title": f"IoU Performance by Data Augmentation - {architecture} Architecture"
                     },
@@ -508,6 +501,9 @@ def plot_model_scores_by_architecture(all_scores: dict):
         height=600,
         width=1200,
         showlegend=True,
+        barmode="group",  # Group bars by x-value
+        bargap=0.2,  # Gap between groups (between different loss functions)
+        bargroupgap=0.05,  # Gap between bars within a group (between augmentations)
         legend=dict(
             title="Data Augmentation", orientation="v", yanchor="top", y=1, xanchor="left", x=1.02
         ),
@@ -533,9 +529,7 @@ def plot_model_scores_by_architecture(all_scores: dict):
     fig.show()
 
     # Print summary by architecture
-    print("\n" + "=" * 100)
-    print("IoU PERFORMANCE BY ARCHITECTURE AND DATA AUGMENTATION")
-    print("=" * 100)
+    print_separator("IoU PERFORMANCE BY ARCHITECTURE AND DATA AUGMENTATION", sep_type="SUPER")
 
     for architecture in architectures:
         arch_data = df[df["Architecture"] == architecture]
@@ -553,10 +547,9 @@ def plot_model_scores_by_architecture(all_scores: dict):
         # Best model for this architecture
         best_idx = arch_data["IoU_mean"].idxmax()
         best_model = arch_data.loc[best_idx]
-        print(
+        print_separator(
             f"  Best model: {best_model['Loss']} with {best_model['Augmentation']} augmentation (IoU={best_model['IoU_mean']:.4f})"
         )
-        print("-" * 80)
 
 
 def plot_iou_boxplots_by_parameter(all_scores: dict, group_by="AUG"):
@@ -656,9 +649,7 @@ def plot_iou_boxplots_by_parameter(all_scores: dict, group_by="AUG"):
     fig.show()
 
     # Print summary statistics
-    print("\n" + "=" * 80)
-    print(f"IoU STATISTICS BY {param_names[group_by].upper()}")
-    print("=" * 80)
+    print_separator(f"IoU STATISTICS BY {param_names[group_by].upper()}", sep_type="SUPER")
 
     for group_value in ordered_values:
         group_data = df[df[column_name] == group_value]
