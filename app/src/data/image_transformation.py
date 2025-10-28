@@ -134,17 +134,6 @@ def split_image_into_grid(image: Image.Image, n: int) -> list[Image.Image]:
         If the dimensions of the input image are not perfectly divisible by n,
         the subimages will still be of the computed size, but this might lead to some
         cropping. The final size of each subimage is fixed at 400x400 pixels.
-
-    Exmaple
-        from src.data import image_transformation as it
-        num = "001"
-        image_in = f"./data/images/satImage_0000{num}.png"
-        truth_in = f"./data/groundtruth/satImage_0000{num}.png"
-        out_dir_image = f"./data/exp_image"
-        out_dir_truth = f"./data/exp_truth"
-
-        split_image_into_subimages(image_in, out_dir_image, 0)
-        split_image_into_subimages(truth_in, out_dir_truth, 0)
     """
     # Open the image
     img = image.copy()
@@ -181,9 +170,6 @@ def rotate_image(image: Image.Image, seed: int, any_angle: bool = False):
         seed (int): The random seed used for generating the rotation angle.
         any_angle (bool): If True, rotate by any angle 1-360;
                           if False, rotate only by 90, 180, or 270 degrees.
-
-    Returns:
-        Image.Image: Rotated and cropped image.
     """
     img = image.copy()
     original_size = img.size
@@ -230,16 +216,6 @@ def mirror_image(image: Image.Image):
 
     Returns:
         Image.Image: The mirrored image as a PIL Image object, flipped horizontally.
-
-    Examples:
-        img_in = "data/images/satImage_0000001.png"  # Replace with your image file
-        truth_in = "data/groundtruth/satImage_0000001.png"  # Replace with your image file
-        out_dir_img = "data/exp_image"  # Replace with your desired output folder
-        out_dir_truth = "data/exp_truth"  # Replace with your desired output folder
-
-        # Call the function
-        mirror_image(img_in, out_dir_img, output_name="mirrored_image.png")
-        mirror_image(truth_in, out_dir_truth, output_name="mirrored_image.png")
     """
     # Open the image
     img = image.copy()
@@ -264,16 +240,6 @@ def random_subimage(image: Image.Image, seed: int):
 
     Returns:
         Image.Image: The randomly selected and scaled subimage as a PIL Image object.
-
-    Examples:
-        img_in = "data/images/satImage_0000001.png"  # Replace with your image file
-        truth_in = "data/groundtruth/satImage_0000001.png"  # Replace with your image file
-        out_dir_img = "data/exp_image"  # Replace with your desired output folder
-        out_dir_truth = "data/exp_truth"  # Replace with your desired output folder
-
-        # Call the function
-        random_subimage(img_in, 12345, out_dir_img, output_name="subimage.png")
-        random_subimage(truth_in, 12345, out_dir_truth, output_name="subimage.png")
     """
     # Set the random seed for reproducibility
     np.random.seed(seed)
@@ -313,18 +279,6 @@ def add_random_circles(image: Image.Image, seed: int):
 
     Returns:
         Image.Image: The modified image with added black circles as a PIL Image object.
-
-    Examples:
-        img_in = "data/images/satImage_0000001.png"  # Replace with your image file
-        truth_in = "data/groundtruth/satImage_0000001.png"  # Replace with your image file
-        n = 4                           # Rotation angle in degrees (counter-clockwise)
-        seed = 42                       # Seed for reproducibility
-        out_dir_img = "data/exp_image"   # Replace with your desired output folder
-        out_dir_truth = "data/exp_truth"  # Replace with your desired output folder
-
-        # Call the function
-        add_random_circles(img_in, 16, seed, out_dir_img, output_name="img_with_circles.png")
-        add_random_circles(truth_in, 16, seed, out_dir_truth, output_name="img_with_circles.png")
     """
     # Open the image
     img = image.copy()
@@ -371,17 +325,6 @@ def set_brightness(image: Image.Image, seed: int):
     Returns:
         Image.Image: The adjusted image with modified brightness as a PIL Image object.
         The adjusted image with modified brightness as a PIL Image object.
-
-    Examples:
-        img_in = "data/images/satImage_0000001.png"  # Replace with your image file
-        truth_in = "data/groundtruth/satImage_0000001.png"  # Replace with your image file
-        seed = 80                      # Random seed for brightness adjustment
-        out_dir_img = "data/exp_image"  # Replace with your desired output folder
-        out_dir_truth = "data/exp_truth"  # Replace with your desired output folder
-
-        # Call the function
-        set_brightness(img_in, seed, out_dir_img, output_name="brightness_adjusted.png")
-        set_brightness(truth_in, seed, out_dir_truth, output_name="brightness_adjusted.png")
     """
     # Brightness
     np.random.seed(seed)
@@ -412,17 +355,6 @@ def shift_color_towards_random(image: Image.Image, seed: int):
 
     Returns:
         Image.Image: The color-shifted image as a PIL Image object.
-
-    Examples:
-        img_in = "data/images/satImage_0000001.png"  # Replace with your image file
-        truth_in = "data/groundtruth/satImage_0000001.png"  # Replace with your image file
-        seed = 32
-        out_dir_img = "data/exp_image"  # Replace with your desired output folder
-        out_dir_truth = "data/exp_truth"  # Replace with your desired output folder
-
-        # Call the function
-        shift_color_towards_random(img_in, seed, out_dir_img, output_name="color_shifted.png")
-        #shift_color_towards_random(truth_in, seed, out_dir_truth, output_name="color_shifted.png")
     """
     img = image.copy()
 
@@ -453,16 +385,6 @@ def add_noise_to_image(image: Image.Image, seed):
 
     Returns:
         Image.Image: The noisy image as a PIL Image object.
-
-    Examples:
-        img_in = "data/images/satImage_0000001.png"  # Replace with your image file
-        truth_in = "data/groundtruth/satImage_0000001.png"  # Replace with your image file
-        noise = 100
-        out_dir_img = "data/exp_image"  # Replace with your desired output folder
-        out_dir_truth = "data/exp_truth"  # Replace with your desired output folder
-
-        # Call the function
-        add_noise_to_image(img_in, noise, out_dir_img, output_name="noisy_image.png")
     """
     # Open the image and convert it to a NumPy array
     img = image.copy()
