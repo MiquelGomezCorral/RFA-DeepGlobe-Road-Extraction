@@ -340,42 +340,42 @@ def plot_model_scores(all_scores: dict):
         )
         print("-" * 80)
 
-    # Create a heatmap of metrics by model configuration
-    metrics_matrix = df[["Architecture", "Augmentation", "Loss"] + metrics].copy()
+    # # Create a heatmap of metrics by model configuration
+    # metrics_matrix = df[["Architecture", "Augmentation", "Loss"] + metrics].copy()
 
-    # Create a more focused visualization by architecture
-    fig2 = go.Figure()
+    # # Create a more focused visualization by architecture
+    # fig2 = go.Figure()
 
-    for arch in df["Architecture"].unique():
-        arch_data = df[df["Architecture"] == arch]
+    # for arch in df["Architecture"].unique():
+    #     arch_data = df[df["Architecture"] == arch]
 
-        fig2.add_trace(
-            go.Scatter(
-                x=arch_data["IoU_mean"],
-                y=arch_data["Dice_mean"],
-                mode="markers+text",
-                name=arch,
-                text=arch_data["Augmentation"] + "_" + arch_data["Loss"],
-                textposition="top center",
-                marker=dict(
-                    size=arch_data["PR_AUC_mean"] * 20,  # Size based on PR_AUC
-                    color=arch_colors[arch],
-                    opacity=0.7,
-                    line=dict(width=2, color="white"),
-                ),
-            )
-        )
+    #     fig2.add_trace(
+    #         go.Scatter(
+    #             x=arch_data["IoU_mean"],
+    #             y=arch_data["Dice_mean"],
+    #             mode="markers+text",
+    #             name=arch,
+    #             text=arch_data["Augmentation"] + "_" + arch_data["Loss"],
+    #             textposition="top center",
+    #             marker=dict(
+    #                 size=arch_data["PR_AUC_mean"] * 20,  # Size based on PR_AUC
+    #                 color=arch_colors[arch],
+    #                 opacity=0.7,
+    #                 line=dict(width=2, color="white"),
+    #             ),
+    #         )
+    #     )
 
-    fig2.update_layout(
-        title="Model Performance: IoU vs Dice (bubble size = PR_AUC)",
-        xaxis_title="IoU Mean",
-        yaxis_title="Dice Mean",
-        showlegend=True,
-        width=800,
-        height=600,
-    )
+    # fig2.update_layout(
+    #     title="Model Performance: IoU vs Dice (bubble size = PR_AUC)",
+    #     xaxis_title="IoU Mean",
+    #     yaxis_title="Dice Mean",
+    #     showlegend=True,
+    #     width=800,
+    #     height=600,
+    # )
 
-    fig2.show()
+    # fig2.show()
 
 
 def plot_model_scores_by_architecture(all_scores: dict):
