@@ -337,7 +337,7 @@ def plot_model_scores(all_scores: dict):
         print(
             f"Recall: {row['Recall_mean']:.4f} | PixelAcc: {row['PixelAcc_mean']:.4f} | PR_AUC: {row['PR_AUC_mean']:.4f}"
         )
-        print("-" * 80)
+        print_separator()
 
     # # Create a heatmap of metrics by model configuration
     # metrics_matrix = df[["Architecture", "Augmentation", "Loss"] + metrics].copy()
@@ -668,4 +668,4 @@ def plot_iou_boxplots_by_parameter(all_scores: dict, group_by="AUG"):
         best_idx = iou_values.idxmax()
         best_model = group_data.loc[best_idx]
         print(f"  Best:  {best_model['Original_Model']} (IoU={best_model['IoU_mean']:.4f})")
-        print("-" * 60)
+        print_separator()
