@@ -23,12 +23,16 @@ screenShoots:
   - readme-images/predictions.png
   - readme-images/predictions2.png
   - readme-images/thumbnail.png
+date:
+  en: Sep 2025
+  es: Sep 2025
 keywords:
   en: [road segmentation, satellite imagery, DeepGlobe, semantic segmentation, UNet, SegFormer, ViT, remote sensing, aerial roads, geospatial, computer vision, pixel classification, data augmentation]
   es: [segmentación de carreteras, imagen satelital, DeepGlobe, segmentación semántica, UNet, SegFormer, ViT, teledetección, carreteras aéreas, geoespacial, visión por computador, clasificación de píxeles, aumento de datos]
 slug: RFA-DeepGlobe-Road-Extraction
 order: 79
 featured: false
+
 
 
 
