@@ -1,6 +1,6 @@
 title:
-  en: "DeepGlobe Road Extraction: Semantic Segmentation with UNet & SegFormer"
-  es: "Extracción de Carreteras DeepGlobe: Segmentación Semántica con UNet & SegFormer"
+  en: DeepGlobe Road Extraction
+  es: Extracción de Carreteras DeepGlobe
 finished: finished
 descriptionShort:
   en: "Road segmentation on the DeepGlobe dataset using two approaches: UNet with segmentation_models_pytorch and SegFormer (ViT-based from HuggingFace). Includes CLI for dataset generation, training, and testing. Full report in the project notebook."
@@ -29,5 +29,6 @@ keywords:
 slug: RFA-DeepGlobe-Road-Extraction
 order: 79
 featured: false
+
 
 
