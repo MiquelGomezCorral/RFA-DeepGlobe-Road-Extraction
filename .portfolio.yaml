@@ -10,7 +10,7 @@ descriptionLong:
     Semantic segmentation project for road extraction from satellite imagery using the DeepGlobe Road Extraction dataset. Implements and compares two model architectures: (1) UNet-based segmentation model from segmentation_models_pytorch with various backbones, (2) SegFormer (nvidia/segformer-b0-finetuned-ade-512-512), a ViT-based semantic segmentation model from HuggingFace Transformers. The full pipeline includes dataset preprocessing, model training with configurable hyperparameters, and testing/evaluation. All experiments and results are documented in a comprehensive Jupyter notebook that serves as the project report.
   es: |
     Proyecto de segmentación semántica para extracción de carreteras desde imágenes satelitales usando el dataset DeepGlobe Road Extraction. Implementa y compara dos arquitecturas: (1) Modelo de segmentación basado en UNet de segmentation_models_pytorch con varios backbones, (2) SegFormer (nvidia/segformer-b0-finetuned-ade-512-512), un modelo de segmentación semántica basado en ViT de HuggingFace Transformers. El pipeline completo incluye preprocesado de dataset, entrenamiento con hiperparámetros configurables, y test/evaluación. Todos los experimentos y resultados están documentados en un notebook Jupyter exhaustivo que sirve como memoria del proyecto.
-technologies: [python, pytorch, huggingface, jupyter]
+technologies: [python, pytorch, huggingface, jupyter, ai]
 tags: [class]
 logo: readme-images/data-augmentation.png
 screenShoots:
@@ -32,6 +32,7 @@ keywords:
 slug: RFA-DeepGlobe-Road-Extraction
 order: 79
 featured: false
+
 
 
 
