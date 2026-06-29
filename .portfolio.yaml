@@ -30,7 +30,7 @@ keywords:
   en: [road segmentation, satellite imagery, DeepGlobe, semantic segmentation, UNet, SegFormer, ViT, remote sensing, aerial roads, geospatial, computer vision, pixel classification, data augmentation]
   es: [segmentación de carreteras, imagen satelital, DeepGlobe, segmentación semántica, UNet, SegFormer, ViT, teledetección, carreteras aéreas, geoespacial, visión por computador, clasificación de píxeles, aumento de datos]
 slug: RFA-DeepGlobe-Road-Extraction
-order: 79
+relevancy: 50
 featured: false
 
 
